@@ -1,0 +1,41 @@
+{{ define "login" }}
+<!DOCTYPE html>
+<html lang="en">
+
+{{ template "head" }}
+
+<body>
+    <div class="pusher">
+        <div style="height: 100%">
+            {{ template "topmenu" }}
+            <div class="ts narrow container relaxed stackable grid cnt0">
+                <div class="column">
+                    <h1 class="ts header cth0">Login</h1>
+                    <form action="" method="post" class="ts tiny form">
+                        <div class="field">
+                            <label> Username: </label>
+                            <input type="text" name="">
+                        </div>
+                        <div class="field">
+                            <label> Password: </label>
+                            <input type="password" name="">
+                        </div>
+
+                        <div class="field">
+                            <div class="ts checkbox">
+                                <input id="agree" type="checkbox" name="">
+                                <label for="agree">Remember me?</label>
+                            </div>
+
+                        </div>
+                        <button class="ts button"> Submit </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tocas-ui/2.3.3/tocas.js"></script>
+</body>
+
+</html>
+{{ end }}

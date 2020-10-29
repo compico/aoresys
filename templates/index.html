@@ -1,0 +1,38 @@
+{{ define "index" }}
+<!DOCTYPE html>
+<html lang="en">
+
+{{ template "head" }}
+
+<body>
+    <div class="pusher">
+        <div style="height: 100%">
+            {{ template "topmenu" }}
+            <div class="ts narrow container relaxed stackable grid cnt0">
+                <div class="ten wide column">
+                    <div class="blog block">
+                        {{ range .Posts }}
+                        <div class="blog content">
+                            <div class="blog title">{{ .Title }}</div>
+                            <div class="blog previewtext">
+                                <img class="ts image" src="{{ .PreviewImage }}">
+                                <p class="blog paragraph">
+                                    {{ .PreviewText }}
+                                </p>
+                            </div>
+                            <div class="blog date"> {{ .Date }}</div>
+                        </div>
+                        {{ end }}
+                    </div>
+                </div>
+                <div class="six wide column">
+                    <img class="ts image" src="/public/images/animals.png">
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tocas-ui/2.3.3/tocas.js"></script>
+</body>
+
+</html>
+{{ end }}
