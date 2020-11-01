@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"log"
 	"net/http"
 	"time"
@@ -15,9 +16,21 @@ func main() {
 		ReadTimeout:  10 * time.Second,
 		WriteTimeout: 10 * time.Second,
 	}
+
+	initDBClient()
+
+	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
+	defer cancel()
+	err := cdb.AddNewUser(ctx)
+	if err != nil {
+		panic(err)
+	}
+
 	testdata()
+
 	router := httprouter.New()
 	srv.Handler = router
+
 	router.GET("/", indexHandler)
 	router.GET("/login", loginHandler)
 	router.GET("/register", registerHandler)
