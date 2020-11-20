@@ -8,33 +8,47 @@
     <div class="pusher">
         <div style="height: 100%">
             {{ template "topmenu" }}
-            <div class="ts narrow container relaxed stackable grid cnt0">
-                <div class="column">
+            <div class="column">
+                <div class="ts form" style="margin-left: 1em;">
                     <h1 class="ts header cth0">Register a New Account</h1>
-                    <form action="" method="post" class="ts tiny form">
-                        <div class="field">
-                            <label> Username & Display name </label>
-                            <input type="text" name="">
+                    <div class="info container">
+                    </div>
+                    <div class="field">
+                        <label> Username & Display name </label>
+                        <div class="ts input name">
+                            <input type="text" name="name">
                         </div>
-                        <div class="field">
-                            <label> Password </label>
-                            <input type="password" name="">
+                    </div>
+                    <div class="field">
+                        <label> Password </label>
+                        <div class="ts input password">
+                            <input type="password" name="password">
                         </div>
-                        <div class="field">
-                            <label> Confirm Password </label>
-                            <input type="password" name="">
+                    </div>
+                    <div class="field">
+                        <label> Confirm Password </label>
+                        <div class="ts input passwordConfirmation">
+                            <input type="password" name="passwordConfirmation">
                         </div>
-                        <div class="field">
-                            <label> Email </label>
-                            <input type="email" name="">
+                    </div>
+                    <div class="field">
+                        <label> Email </label>
+                        <div class="ts input email">
+                            <input type="email" name="email">
                         </div>
-                        <button class="ts button"> Submit </button>
-                    </form>
+                    </div>
+                    <button class="ts button"> Submit </button>
                 </div>
             </div>
         </div>
+        <div class="ts top left snackbar">
+            <div class="content">
+            </div>
+            <a class="primary action"></a>
+        </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tocas-ui/2.3.3/tocas.js"></script>
+    <script src="/public/js/register.js"></script>
 </body>
 
 </html>
