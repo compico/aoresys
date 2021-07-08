@@ -1,0 +1,32 @@
+{{ define "blogview" }}
+<div class="container">
+    <div class="row">
+        <div class="col-7">
+            {{ if .Posts }}
+            {{ range .Posts }}
+            <div class="card my-4">
+                <div class="card-header">{{ .Title }}</div>
+                <img class="card-img-top" src="{{ .PreviewImage }}">
+                <div class="card-body">
+                    <p class="card-text">{{ .PreviewText }}</p>
+                </div>
+                <div class="card-footer">
+                    <p class="text-end my-0" style="justify-content:space-between;">
+                        <small class="text-muted">
+                            {{ .Date }}
+                        </small>
+                    </p>
+                </div>
+            </div>
+            {{ end }}
+            {{ end }}
+        </div>
+        <div class="col-5">
+            <figure class="figure">
+                <img class="img-fluid" src="/public/images/animals.png">
+                <figcaption class="figure-caption">Minecraft - ne Minecraft</figcaption>
+            </figure>
+        </div>
+    </div>
+</div>
+{{ end }}

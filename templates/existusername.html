@@ -1,0 +1,20 @@
+{{ define "existusername" }}
+{{ if .Result }}
+<input type="text" class="form-control is-invalid" placeholder="Username" aria-label="Username"
+    aria-describedby="basic-addon1" name="username" value="{{ .Username }}" oninput="cui(this)">
+<button class="btn btn-outline-danger" type="button" hx-trigger="click" hx-target="closest div" id="button-addon1"
+    hx-post="/doms/existusername" hx-params="username">Check</button>
+<div id="validationServerUsernameFeedback" class="invalid-feedback">
+    {{ .Username }} занят.
+</div>
+{{ end }}
+{{ if not .Result }}
+<input type="text" class="form-control is-valid" placeholder="Username" aria-label="Username"
+    aria-describedby="basic-addon1" name="username" value="{{ .Username }}" oninput="cui(this)">
+<button class="btn btn-outline-success" type="button" id="button-addon1" hx-target="closest div" hx-trigger="click"
+    hx-post="/doms/existusername" hx-params="username">Check</button>
+<div class="valid-feedback">
+    {{ .Username }} свободен
+</div>
+{{ end }}
+{{ end }}

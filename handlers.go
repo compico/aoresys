@@ -1,78 +1,82 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"html/template"
 	"net/http"
-	"strconv"
 	"time"
 
-	"github.com/compico/aoresys/aoreblg"
 	"github.com/julienschmidt/httprouter"
 )
 
 var tpath = "./templates/"
-var x = aoreblg.Posts{}
 
 func indexHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	t, err := template.ParseFiles(
 		tpath+"head.html",
 		tpath+"index.html",
-		tpath+"topmenu.html",
+		tpath+"footer.html",
 	)
 	if err != nil {
 		fmt.Fprintf(w, "Error: %v", err.Error())
 	}
-	err = t.ExecuteTemplate(w, "index", x)
+	err = t.ExecuteTemplate(w, "index", nil)
 	if err != nil {
 		fmt.Fprintf(w, "[ERROR] %v!!", err.Error())
 		fmt.Printf("[ERROR] %v!!", err.Error())
 	}
 }
 
-func registerHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	t, err := template.ParseFiles(
-		tpath+"head.html",
-		tpath+"register.html",
-		tpath+"topmenu.html",
-	)
+func loginregHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	w.Header().Add("HX-Trigger", "{\"addBtnEventStatements\": \"\"}")
+	t, err := template.ParseFiles(tpath + "loginreg.html")
 	if err != nil {
 		fmt.Fprintf(w, "Error: %v", err.Error())
 	}
-	err = t.ExecuteTemplate(w, "register", nil)
-	if err != nil {
-		fmt.Fprintf(w, "[ERROR] %v!!", err.Error())
-		fmt.Printf("[ERROR] %v!!", err.Error())
-	}
-}
-
-func loginHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	t, err := template.ParseFiles(
-		tpath+"head.html",
-		tpath+"login.html",
-		tpath+"topmenu.html",
-	)
+	err = t.ExecuteTemplate(w, "loginreg", nil)
 	if err != nil {
 		fmt.Fprintf(w, "Error: %v", err.Error())
 	}
-	err = t.ExecuteTemplate(w, "login", nil)
+}
+
+func indexpageHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	t, err := template.ParseFiles(tpath + "indexpage.html")
 	if err != nil {
-		fmt.Fprintf(w, "[ERROR] %v!!", err.Error())
-		fmt.Printf("[ERROR] %v!!", err.Error())
+		fmt.Fprintf(w, "Error: %v", err.Error())
+	}
+	err = t.ExecuteTemplate(w, "indexpage", nil)
+	if err != nil {
+		fmt.Fprintf(w, "Error: %v", err.Error())
 	}
 }
 
-func testdata() {
-	x.Posts = make([]aoreblg.Post, 0)
-
-	for i := 0; i < 5; i++ {
-		y := aoreblg.Post{
-			Title:        "Проверка названия блога " + strconv.Itoa(i+1),
-			Date:         time.Now().Round(2 * time.Second),
-			PreviewImage: "/public/images/animals.png",
-			PreviewText:  "Test проверка текста или прочего дерьма  Test проверка текста или прочего дерьмаTest проверка текста или прочего дерьма  Test проверка текста или прочего дерьмаTest проверка текста или прочего дерьма  Test проверка текста или прочего дерьмаTest проверка текста или прочего дерьма  Test проверка текста или прочего дерьма",
-			Text:         "HELLLLOOWWW EvRyVaNjeiawoejioawjoie",
+func existUsernameHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	r.ParseForm()
+	res := struct {
+		Result   bool
+		Username string
+	}{
+		Username: r.FormValue("username"),
+	}
+	var err error
+	if res.Username != "" {
+		ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
+		defer cancel()
+		res.Result, err = cdb.ExistUsername(ctx, res.Username)
+		if err != nil {
+			fmt.Fprintf(w, "{ \"error\":\"%v\" }", err)
+			return
 		}
-		x.Posts = append(x.Posts, y)
+	}
+	t, err := template.ParseFiles(tpath + "existusername.html")
+	if err != nil {
+		fmt.Fprintf(w, "{ \"error\":\"%v\" }", err)
+		return
+	}
+	err = t.ExecuteTemplate(w, "existusername", res)
+	if err != nil {
+		fmt.Fprintf(w, "{ \"error\":\"%v\" }", err)
+		return
 	}
 }

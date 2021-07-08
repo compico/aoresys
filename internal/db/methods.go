@@ -3,6 +3,7 @@ package db
 import (
 	"context"
 	"errors"
+	"strings"
 
 	"github.com/compico/aoresys/internal/userutil"
 	"go.mongodb.org/mongo-driver/bson"
@@ -37,7 +38,8 @@ func (db *DB) AddNewUser(ctx context.Context, usr userutil.User) error {
 		}
 		_, err = col.InsertOne(sc, bson.M{
 			"_id":      newuuid,
-			"user":     usr.Name,
+			"username": strings.ToLower(usr.Username),
+			"nick":     usr.Username,
 			"password": string(hashpass),
 		})
 		if err != nil {
@@ -57,18 +59,17 @@ func (db *DB) AddNewUser(ctx context.Context, usr userutil.User) error {
 
 func (db *DB) ExistUsername(ctx context.Context, username string) (bool, error) {
 	col := db.Client.Database("golosovanie").Collection("users")
-	// var result bson.M
 	err := db.Client.Ping(ctx, readpref.Primary())
 	if err != nil {
 		return true, err
 	}
-	opts := options.FindOne().SetProjection(bson.M{"user": 1, "_id": 0})
-	res := col.FindOne(ctx, bson.M{"user": username}, opts)
+	opts := options.FindOne().SetProjection(bson.M{"username": 1, "_id": 0})
+	res := col.FindOne(ctx, bson.M{"username": username}, opts)
 	if err != nil {
 		return true, err
 	}
 	var result struct {
-		User string
+		Username string
 	}
 	err = res.Decode(&result)
 	if err != nil {
@@ -77,7 +78,7 @@ func (db *DB) ExistUsername(ctx context.Context, username string) (bool, error) 
 		}
 		return true, err
 	}
-	if result.User == username {
+	if result.Username == username {
 		return true, nil
 	}
 	return false, nil

@@ -34,8 +34,7 @@ func (mongodb *MongoConfig) getUri() error {
 	if len(mongodb.Hostname) == 0 {
 		return errors.New("Config error! Field 'HostName' is nil")
 	}
-	query := "authSource=admin&replicaSet=" +
-		mongodb.ReplicaSet + "&readPreference=primary&ssl=true"
+	query := "authSource=admin&" + "&readPreference=primary&ssl=true"
 	x := url.URL{
 		Scheme:   "mongodb+srv",
 		User:     user,

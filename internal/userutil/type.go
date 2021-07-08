@@ -1,7 +1,8 @@
 package userutil
 
 type User struct {
-	Name     string
+	Username string
+	Nick     string
 	Password string
 	Model    bool
 }

@@ -1,38 +1,29 @@
 {{ define "index" }}
-<!DOCTYPE html>
-<html lang="en">
 
 {{ template "head" }}
 
 <body>
-    <div class="pusher">
-        <div style="height: 100%">
-            {{ template "topmenu" }}
-            <div class="ts narrow container relaxed stackable grid cnt0">
-                <div class="ten wide column">
-                    <div class="blog block">
-                        {{ range .Posts }}
-                        <div class="blog content">
-                            <div class="blog title">{{ .Title }}</div>
-                            <div class="blog previewtext">
-                                <img class="ts image" src="{{ .PreviewImage }}">
-                                <p class="blog paragraph">
-                                    {{ .PreviewText }}
-                                </p>
-                            </div>
-                            <div class="blog date"> {{ .Date }}</div>
-                        </div>
-                        {{ end }}
-                    </div>
-                </div>
-                <div class="six wide column">
-                    <img class="ts image" src="/public/images/animals.png">
+    <div id="app">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container">
+                <a class="navbar-brand" hx-target="#app" hx-get="/doms/index" href="javascript:void(0)">
+                    <img src="/public/images/golosovanie_logo.png" height="32" class="d-inline-block">
+                </a>
+                <div class="container-fluid justify-content-start">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <button class="btn btn-success active me-2" hx-target="#app"
+                                hx-get="/doms/index">Home</button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="btn btn-success me-2" hx-target="#app" hx-get="/doms/loginreg">Login
+                                in/Register
+                                now</button>
+                        </li>
+                    </ul>
                 </div>
             </div>
-        </div>
+        </nav>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tocas-ui/2.3.3/tocas.js"></script>
-</body>
-
-</html>
+{{ template "footer" }}
 {{ end }}
