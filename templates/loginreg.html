@@ -1,59 +1,154 @@
 {{ define "loginreg" }}
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container">
-        <a class="navbar-brand" hx-target="#app" hx-get="/doms/index" href="javascript:void(0)">
-            <img src="/public/images/golosovanie_logo.png" height="32" class="d-inline-block">
-        </a>
-        <div class="container-fluid justify-content-start">
-            <ul class="navbar-nav">
-                <li class=" nav-item">
-                    <button class="btn btn-success me-2" hx-target="#app" hx-get="/doms/index">Home</button>
-                </li>
-                <li class="nav-item">
-                    <button class="btn btn-success active me-2" hx-target="#app" hx-get="/doms/loginreg">Login
-                        in/Register
-                        now</button>
-                </li>
-            </ul>
-        </div>
-    </div>
+	<div class="container">
+		<a class="navbar-brand" hx-target="#app" hx-get="/doms/index" href="javascript:void(0)">
+			<img src="/public/images/golosovanie_logo.png" height="32" class="d-inline-block">
+		</a>
+		<div class="container-fluid justify-content-start">
+			<ul class="navbar-nav">
+				<li class="nav-item">
+					<button class="btn btn-success me-2" hx-target="#app" hx-get="/doms/index">Home</button>
+				</li>
+			</ul>
+		</div>
+		<div class="container-fluid justify-content-end">
+			<ul class="navbar-nav">
+				<li class="nav-item">
+					<button class="btn btn-success active me-2" hx-target="#app" hx-get="/doms/loginreg">Login
+						in/Register
+						now</button>
+				</li>
+			</ul>
+		</div>
+	</div>
 </nav>
 <div class="container-sm">
-    <div class="row justify-content-center">
-        <div class="col-4">
-            <h3 class="my-4">Вход</h3>
-            <div class="mb-3"></div>
-            <div class="mb-3"></div>
-            <div class="mb-3"></div>
-        </div>
-        <div class="col-4">
-            <h3 class="my-4">Регистрация</h3>
-            <form>
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Username" aria-label="Username"
-                        aria-describedby="basic-addon1" name="username" oninput="cui(this)">
-                    <button class="btn btn-outline-secondary" type="button" id="button-addon1" hx-trigger="click"
-                        hx-target="closest div" hx-post="/doms/existusername" hx-params="username"
-                        disabled>Check</button>
-                </div>
-                <div class="alert alert-danger" role="alert">
-                    <div class="mb-3">
-                        <input type="text" class="form-control" placeholder="Password" aria-label="Password"
-                            aria-describedby="basic-addon2" name="password">
-                    </div>
-                    <div class="mb-3">
-                        <input type="text" class="form-control" placeholder="Confirm Password"
-                            aria-label="Confirm Password" aria-describedby="basic-addon3" name="passwordConfirmation">
-                    </div>
-                </div>
-                <div class="mb-3">
-
-                </div>
-                <div class="mb-3">
-
-                </div>
-            </form>
-        </div>
-    </div>
+	<div class="row justify-content-center">
+		<div class="col-4">
+			<h3 class="my-4">Вход</h3>
+			<div class="mb-3"></div>
+			<div class="mb-3"></div>
+			<div class="mb-3"></div>
+		</div>
+		<div class="col-4">
+			<h3 class="my-4">Регистрация</h3>
+			<div class="list-group">
+				<form method="POST" action="/api/v1/register">
+					<div class="list-group-item">
+						<small class="text-muted">-size 4-32 char</small>
+						<p><small class="text-muted">-only a-z,A-Z,0-9 char</small></p>
+						<p><small class="text-muted"></small></p>
+						<h6>Username :</h6>
+						<div class="input-group mb-3">
+							<input type="text" class="form-control" aria-describedby="basic-addon1" name="username">
+							<button class="btn btn-outline-secondary" type="button" id="button-addon1"
+								hx-trigger="click" hx-target="closest .list-group-item" hx-swap="outerHTML"
+								hx-post="/doms/existusername" hx-params="username" disabled>Check</button>
+						</div>
+					</div>
+					<div class="list-group-item">
+						<h6>Email :</h6>
+						<div class="my-3">
+							<input type="email" name="email" class="form-control" aria-describedby="basic-addon4">
+						</div>
+					</div>
+					<div class="list-group-item">
+						<h6>Password :</h6>
+						<div class="my-3">
+							<input type="password" class="form-control" aria-describedby="basic-addon2" name="password">
+						</div>
+						<h6>Password Confirmation :</h6>
+						<div class="mb-3">
+							<input type="password" class="form-control" aria-describedby="basic-addon3"
+								name="passwordConfirmation">
+						</div>
+					</div>
+					<div class="list-group-item">
+						<h6 class="mb-3">Model :</h6>
+						<div class="row justify-content-center">
+							<div class="col">
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="radio" name="model" id="inlineRadio1"
+										value="steve" checked="true">
+									<label class="form-check-label" for="inlineRadio1">Steve</label>
+								</div>
+							</div>
+							<div class="col">
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="radio" name="model" id="inlineRadio2"
+										value="alex">
+									<label class="form-check-label" for="inlineRadio2">Alex</label>
+								</div>
+							</div>
+						</div>
+						<div class="row justify-content-center">
+							<div class="col">
+								<img src="/public/images/steve.png" class="img-fluid mx-auto d-block">
+							</div>
+							<div class="col">
+								<img src="/public/images/alex.png" class="img-fluid mx-auto d-block">
+							</div>
+						</div>
+					</div>
+					<div class="list-group-item">
+						<input type="submit" value="Register" class="btn btn-outline-secondary my-3">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 </div>
+<script>;
+	"use strict";
+	var validator = (function () {
+		let warning = document.createElement('span'),
+			pw = document.getElementById("passwordwarning"),
+			ps = document.getElementsByName("password")[0],
+			pc = document.getElementsByName("passwordConfirmation")[0],
+			ui = document.getElementsByName("username")[0],
+			ch = document.getElementById("button-addon1"),
+			pf = ps.parentElement.parentElement;
+		warning.className = "badge text-dark mb-2";
+		warning.id = "passwordwarning";
+		warning.hidden = true;
+		this.showWarning = function (massage) {
+			warning.innerHTML = massage;
+			warning.hidden = false;
+		};
+		let showWarning = this.showWarning;
+		pf.appendChild(warning);
+		let event = function () {
+			if (ps.value == "" && pc.value == "") {
+				pf.classList.remove("list-group-item-danger");
+				pf.classList.remove("list-group-item-success");
+				return;
+			}
+			if (ps.value != pc.value) {
+				showWarning("Password mismatch");
+				pf.classList.remove("list-group-item-success");
+				pf.classList.add("list-group-item-danger");
+				return;
+			}
+			if (ps.value.length < 6) {
+				showWarning("Password too short");
+				pf.classList.remove("list-group-item-success");
+				pf.classList.add("list-group-item-danger");
+				return;
+			}
+			if (ps.value == pc.value) {
+				warning.hidden = true;
+				pf.classList.remove("list-group-item-danger");
+				pf.classList.add("list-group-item-success");
+				return;
+			}
+		};
+		ui.addEventListener("input", () => {
+			ui.value == "" ? ch.disabled = true : ch.disabled = false;
+		});
+		ps.addEventListener("input", event);
+		pc.addEventListener("input", event);
+		this.warning = warning;
+	});
+	validator();
+</script>
 {{ end }}

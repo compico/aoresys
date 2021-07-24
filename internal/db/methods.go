@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"strings"
+	"time"
 
 	"github.com/compico/aoresys/internal/userutil"
 	"go.mongodb.org/mongo-driver/bson"
@@ -28,7 +29,7 @@ func (db *DB) AddNewUser(ctx context.Context, usr userutil.User) error {
 		return err
 	}
 	err = mongo.WithSession(ctx, session, func(sc mongo.SessionContext) error {
-		newuuid, err := generateUUID(usr.Model)
+		newuuid, err := GenerateUUID(usr.Model)
 		if err != nil {
 			return err
 		}
@@ -37,10 +38,14 @@ func (db *DB) AddNewUser(ctx context.Context, usr userutil.User) error {
 			return err
 		}
 		_, err = col.InsertOne(sc, bson.M{
-			"_id":      newuuid,
-			"username": strings.ToLower(usr.Username),
-			"nick":     usr.Username,
-			"password": string(hashpass),
+			"_id":         newuuid,
+			"username":    strings.ToLower(usr.Username),
+			"nick":        usr.Username,
+			"email":       usr.Email,
+			"model":       usr.Model,
+			"registrDate": time.Now().Round(time.Second),
+			"lastlogin":   time.Now().Round(time.Second),
+			"password":    string(hashpass),
 		})
 		if err != nil {
 			return err

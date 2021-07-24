@@ -1,20 +1,38 @@
 {{ define "existusername" }}
 {{ if .Result }}
-<input type="text" class="form-control is-invalid" placeholder="Username" aria-label="Username"
-    aria-describedby="basic-addon1" name="username" value="{{ .Username }}" oninput="cui(this)">
-<button class="btn btn-outline-danger" type="button" hx-trigger="click" hx-target="closest div" id="button-addon1"
-    hx-post="/doms/existusername" hx-params="username">Check</button>
-<div id="validationServerUsernameFeedback" class="invalid-feedback">
-    {{ .Username }} занят.
+<div class="list-group-item list-group-item-danger">
+    <small class="text-muted">-size 4-32 char</small>
+    <p><small class="text-muted">-only a-z,A-Z,0-9 char</small></p>
+    <p><small class="text-muted"></small></p>
+    <h6>Username :</h6>
+    <div class="input-group mb-3">
+        <input type="text" class="form-control is-invalid" aria-describedby="basic-addon1" name="username"
+            value="{{ .Username }}">
+        <button class="btn btn-outline-danger" type="button" id="button-addon1" hx-trigger="click"
+            hx-target="closest .list-group-item" hx-swap="outerHTML" hx-post="/doms/existusername"
+            hx-params="username">Check</button>
+        <div id="validationServerUsernameFeedback" class="invalid-feedback">
+            {{ .Username }} занят.
+        </div>
+    </div>
 </div>
 {{ end }}
 {{ if not .Result }}
-<input type="text" class="form-control is-valid" placeholder="Username" aria-label="Username"
-    aria-describedby="basic-addon1" name="username" value="{{ .Username }}" oninput="cui(this)">
-<button class="btn btn-outline-success" type="button" id="button-addon1" hx-target="closest div" hx-trigger="click"
-    hx-post="/doms/existusername" hx-params="username">Check</button>
-<div class="valid-feedback">
-    {{ .Username }} свободен
+<div class="list-group-item list-group-item-success">
+    <small class="text-muted"> -size 4-32 char</small>
+    <p><small class="text-muted"> -only a-z,A-Z,0-9 char</small></p>
+    <p><small class="text-muted"></small></p>
+    <h6>Username :</h6>
+    <div class="input-group mb-3">
+        <input type="text" class="form-control is-valid" aria-describedby="basic-addon1" name="username"
+            value="{{ .Username }}">
+        <button class="btn btn-outline-success" type="button" id="button-addon1" hx-trigger="click"
+            hx-target="closest .list-group-item" hx-swap="outerHTML" hx-post="/doms/existusername"
+            hx-params="username">Check</button>
+        <div class="valid-feedback">
+            {{ .Username }} свободен.
+        </div>
+    </div>
 </div>
 {{ end }}
 {{ end }}

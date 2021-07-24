@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"html/template"
 	"net/http"
+	"strings"
 	"time"
 
 	"github.com/julienschmidt/httprouter"
@@ -63,7 +64,7 @@ func existUsernameHandler(w http.ResponseWriter, r *http.Request, _ httprouter.P
 	if res.Username != "" {
 		ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
 		defer cancel()
-		res.Result, err = cdb.ExistUsername(ctx, res.Username)
+		res.Result, err = cdb.ExistUsername(ctx, strings.ToLower(res.Username))
 		if err != nil {
 			fmt.Fprintf(w, "{ \"error\":\"%v\" }", err)
 			return

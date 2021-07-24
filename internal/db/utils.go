@@ -2,14 +2,13 @@ package db
 
 import (
 	"encoding/hex"
-	"fmt"
 	"strings"
 
 	"github.com/compico/aoresys/internal/userutil"
 	"github.com/google/uuid"
 )
 
-func generateUUID(model bool) (string, error) {
+func GenerateUUID(model bool) (string, error) {
 	var buuid string
 	for {
 		uuuid, err := uuid.NewRandom()
@@ -18,7 +17,6 @@ func generateUUID(model bool) (string, error) {
 		}
 		buuid = uuuid.String()
 		suuid := strings.ReplaceAll(uuuid.String(), "-", "")
-		fmt.Println(suuid)
 		h, err := hex.DecodeString(suuid)
 		if err != nil {
 			return "", err

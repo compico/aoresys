@@ -1,20 +1,22 @@
-package testuuid
+package db_test
 
 import (
 	"encoding/hex"
 	"fmt"
 	"strings"
+	"testing"
 
 	"github.com/google/uuid"
 )
 
-func StartTest() {
+func TestGenerateUUID(b *testing.B) {
 	x := []string{}
 	var (
 		zero int
 		one  int
 	)
-	for i := 0; i < 1000; i++ {
+
+	for i := 0; i < b.N; i++ {
 		x = append(x, uuid.New().String())
 	}
 	for i := 0; i < len(x); i++ {

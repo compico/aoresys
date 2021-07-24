@@ -22,9 +22,7 @@ func main() {
 
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
-
-	err := cdb.Client.Connect(ctx)
-	if err != nil {
+	if err := cdb.Client.Connect(ctx); err != nil {
 		panic(fmt.Errorf("Error: %v\n", err.Error()))
 	}
 	defer func() {
@@ -37,11 +35,13 @@ func main() {
 	router := httprouter.New()
 	srv.Handler = router
 	router.GET("/", indexHandler)
+
 	router.GET("/doms/index", indexpageHandler)
 	router.GET("/doms/loginreg", loginregHandler)
 	router.POST("/doms/existusername", existUsernameHandler)
 
 	router.POST("/api/v1/register", registerApiHandler)
+
 	router.ServeFiles("/public/*filepath", http.Dir("./public/"))
 
 	log.Fatal(srv.ListenAndServe())
