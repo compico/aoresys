@@ -68,9 +68,12 @@ func (db *DB) ExistUsername(ctx context.Context, username string) (bool, error) 
 	if err != nil {
 		return true, err
 	}
-	q := bson.M{"username": username}
+	var raw = bson.Raw(username)
+	if err := raw.Validate(); err == nil {
+		return true, errors.New("Injection!")
+	}
 	opts := options.FindOne().SetProjection(bson.M{"username": 1, "_id": 0})
-	res := col.FindOne(ctx, q, opts)
+	res := col.FindOne(ctx, bson.M{"username": username}, opts)
 	if err != nil {
 		return true, err
 	}
