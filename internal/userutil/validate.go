@@ -34,6 +34,12 @@ func (v *Validator) ValidateByEqual() bool {
 	}
 	return true
 }
+func (v *Validator) GetRightVar() string {
+	if v.ValidateByEqual() && v.ValidateLen() {
+		return v.text
+	}
+	return ""
+}
 
 func validateByte(b byte) bool {
 	if b >= zero && b <= nine {
