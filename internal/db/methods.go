@@ -73,8 +73,9 @@ func (db *DB) ExistUsername(ctx context.Context, username string) (bool, error) 
 	if username == ""{
 		return true, errors.New("Incorrect length or wrong characters")
 	}
+	q := bson.M{"username": username}
 	opts := options.FindOne().SetProjection(bson.M{"username": 1, "_id": 0})
-	res := col.FindOne(ctx, bson.M{"username": username}, opts)
+	res := col.FindOne(ctx, q, opts)
 	if err != nil {
 		return true, err
 	}
