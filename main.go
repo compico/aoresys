@@ -38,6 +38,7 @@ func main() {
 
 	router.GET("/doms/index", indexpageHandler)
 	router.GET("/doms/loginreg", loginregHandler)
+	router.GET("/doms/servercard", servercardHandler)
 	router.POST("/doms/existusername", existUsernameHandler)
 
 	router.POST("/api/v1/register", registerApiHandler)

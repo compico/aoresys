@@ -1,25 +1,57 @@
 {{ define "indexpage" }}
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container">
-        <a class="navbar-brand" hx-target="#app" hx-get="/doms/index" href="javascript:void(0)">
-            <img src="/public/images/golosovanie_logo.png" height="32" class="d-inline-block">
-        </a>
-        <div class="container-fluid justify-content-start">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <button class="btn btn-success active me-2" hx-target="#app" hx-get="/doms/index">Home</button>
-                </li>
-            </ul>
-        </div>
-        <div class="container-fluid justify-content-end">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <button class="btn btn-success me-2" hx-target="#app" hx-get="/doms/loginreg">Login
-                        in/Register
-                        now</button>
-                </li>
-            </ul>
-        </div>
+  <div class="container">
+    <a
+      class="navbar-brand"
+      hx-target="#app"
+      hx-get="/doms/index"
+      href="javascript:void(0)"
+    >
+      <img
+        src="/public/images/golosovanie_logo.png"
+        height="32"
+        class="d-inline-block"
+      />
+    </a>
+    <div class="container-fluid justify-content-start">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <button
+            class="btn btn-success active me-2"
+            hx-target="#app"
+            hx-get="/doms/index"
+          >
+            Home
+          </button>
+        </li>
+      </ul>
     </div>
+    <div class="container-fluid justify-content-end">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <button
+            class="btn btn-success me-2"
+            hx-target="#app"
+            hx-get="/doms/loginreg"
+          >
+            Login in/Register now
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
 </nav>
+<div class="container-sm">
+  <div class="row justify-content-center mt-2">
+    <div class="col-6">test</div>
+    <div
+      class="col-4"
+      hx-get="/doms/servercard"
+      hx-trigger="load"
+      hx-target="this"
+    >
+      Loading..
+    </div>
+  </div>
+</div>
 {{ end }}

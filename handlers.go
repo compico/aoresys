@@ -13,6 +13,26 @@ import (
 
 var tpath = "./templates/"
 
+type (
+	CardData struct {
+		Percent int
+		QueryResult
+	}
+	QueryResult struct {
+		HostIP    string
+		Player    string
+		Hostname  string
+		Version   string
+		NumPlayer int
+		MaxPlayer int
+		HostPort  int
+		Gametype  string
+		GameID    string
+		Plugins   string
+		Map       string
+	}
+)
+
 func indexHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	t, err := template.ParseFiles(
 		tpath+"head.html",
@@ -30,12 +50,24 @@ func indexHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 }
 
 func loginregHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	w.Header().Add("HX-Trigger", "{\"addBtnEventStatements\": \"\"}")
+	// w.Header().Add("HX-Trigger", "{\"addBtnEventStatements\": \"example\"}")
 	t, err := template.ParseFiles(tpath + "loginreg.html")
 	if err != nil {
 		fmt.Fprintf(w, "Error: %v", err.Error())
 	}
 	err = t.ExecuteTemplate(w, "loginreg", nil)
+	if err != nil {
+		fmt.Fprintf(w, "Error: %v", err.Error())
+	}
+}
+
+func servercardHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	dataservercard := getServerCardData("")
+	t, err := template.ParseFiles(tpath + "servercard.html")
+	if err != nil {
+		fmt.Fprintf(w, "Error: %v", err.Error())
+	}
+	err = t.ExecuteTemplate(w, "servercard", dataservercard)
 	if err != nil {
 		fmt.Fprintf(w, "Error: %v", err.Error())
 	}

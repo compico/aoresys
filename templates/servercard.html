@@ -1,0 +1,40 @@
+{{ define "servercard" }}
+<div class="card">
+  <div class="card-body">
+    <div class="card-title">
+      Сервера
+    </div>
+  </div>
+  <div class="card-body pt-0">
+    <div class="card-title">
+        <div class="row">
+          <div class="col">
+            {{ .QueryResult.Hostname }}
+          </div>
+          <div class="col text-end">
+            {{ .QueryResult.NumPlayer }}
+              /
+            {{ .QueryResult.MaxPlayer }}
+          </div>
+        </div>
+    </div>
+    <div class="progress">
+      <div
+        class="progress-bar"
+        role="progressbar"
+        style="width: {{ .Percent }}%;"
+        aria-valuenow="{{ .QueryResult.NumPlayer }}"
+        aria-valuemin="0"
+        aria-valuemax="{{ .QueryResult.MaxPlayer }}">
+        {{ .QueryResult.NumPlayer }}
+        /
+        {{ .QueryResult.MaxPlayer }}
+      </div>
+    </div>
+    <h6 class="mt-2 text-muted">Players:</h6>
+    <h6 class="text-muted px-2">
+      {{ .QueryResult.Player }}
+    </h6>
+  </div>
+</div>
+{{ end }}
