@@ -34,12 +34,12 @@ func (mongodb *MongoConfig) getUri() error {
 	if len(mongodb.Hostname) == 0 {
 		return errors.New("Config error! Field 'HostName' is nil")
 	}
-	query := "authSource=admin&readPreference=primary&ssl=true"
+	query := "retryWrites=true&w=majority"
 	x := url.URL{
 		Scheme:   "mongodb+srv",
 		User:     user,
 		Host:     mongodb.getHostname(),
-		Path:     "/admin",
+		Path:     "/golosovanie",
 		RawQuery: query,
 	}
 	mongodb.URI = x.String()
