@@ -3,6 +3,7 @@ package db
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io/ioutil"
 	"net/url"
 )
@@ -43,6 +44,7 @@ func (mongodb *MongoConfig) getUri() error {
 		RawQuery: query,
 	}
 	mongodb.URI = x.String()
+	fmt.Printf(mongodb.URI)
 	return nil
 }
 
