@@ -3,7 +3,6 @@ package db
 import (
 	"encoding/json"
 	"errors"
-	"fmt"
 	"io/ioutil"
 	"net/url"
 )
@@ -35,7 +34,7 @@ func (mongodb *MongoConfig) getUri() error {
 	if len(mongodb.Hostname) == 0 {
 		return errors.New("Config error! Field 'HostName' is nil")
 	}
-	query := "authSource=admin&" + "&readPreference=primary&ssl=true"
+	query := "authSource=admin&readPreference=primary&ssl=true"
 	x := url.URL{
 		Scheme:   "mongodb+srv",
 		User:     user,
@@ -44,7 +43,6 @@ func (mongodb *MongoConfig) getUri() error {
 		RawQuery: query,
 	}
 	mongodb.URI = x.String()
-	fmt.Printf(mongodb.URI)
 	return nil
 }
 
