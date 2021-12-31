@@ -2,7 +2,6 @@ package conf
 
 import (
 	"errors"
-	"fmt"
 	"os"
 
 	"github.com/compico/aoresys/internal/db"
@@ -45,7 +44,6 @@ func GetMongoConfigFromEnvironment() (*db.MongoConfig, error) {
 }
 
 func getDataOrError(data string) (string, error) {
-	fmt.Println(data)
 	if data == "" {
 		return "", EmptyError
 	}
