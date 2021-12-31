@@ -7,20 +7,7 @@ import (
 	"net/url"
 )
 
-func NewConfig(path string) (*MongoConfig, error) {
-	mongodb := new(MongoConfig)
-	err := mongodb.readConfig(path)
-	if err != nil {
-		return nil, err
-	}
-	err = mongodb.getUri()
-	if err != nil {
-		return nil, err
-	}
-	return mongodb, nil
-}
-
-func (mongodb *MongoConfig) getUri() error {
+func (mongodb *MongoConfig) GetUri() error {
 	//"mongodb://<username>:<password>@<cluster-address>/test?w=majority"
 	var user *url.Userinfo
 	if mongodb.User != "" {

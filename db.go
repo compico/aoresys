@@ -1,13 +1,16 @@
 package main
 
-import "github.com/compico/aoresys/internal/db"
+import (
+	"github.com/compico/aoresys/conf"
+	"github.com/compico/aoresys/internal/db"
+)
 
 var (
 	cdb *db.DB
 )
 
 func initDBClient() {
-	dbcfg, err := db.NewConfig("./conf/mongo.json")
+	dbcfg, err := conf.GetMongoConfigFromEnvironment()
 	if err != nil {
 		panic(err)
 	}
