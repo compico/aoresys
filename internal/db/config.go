@@ -23,7 +23,7 @@ func (mongodb *MongoConfig) GetUri() error {
 	}
 	query := "retryWrites=true&w=majority"
 	x := url.URL{
-		Scheme:   "mongodb",
+		Scheme:   "mongodb+srv",
 		User:     user,
 		Host:     mongodb.getHostname(),
 		Path:     "/golosovanie",
