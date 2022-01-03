@@ -70,7 +70,7 @@ func (db *DB) ExistUsername(ctx context.Context, username string) (bool, error) 
 	}
 	validator := userutil.NewValidator(username)
 	username = validator.GetRightVar()
-	if username == ""{
+	if username == "" {
 		return true, errors.New("Incorrect length or wrong characters")
 	}
 	q := bson.M{"username": username}
