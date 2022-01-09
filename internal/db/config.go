@@ -8,7 +8,7 @@ import (
 )
 
 func (mongodb *MongoConfig) GetUri() error {
-	//"mongodb://<username>:<password>@<cluster-address>/test?w=majority"
+	//"mongodb+srv://<username>:<password>@<cluster-address>/test?w=majority"
 	var user *url.Userinfo
 	if mongodb.User != "" {
 		if mongodb.Password != "" {
