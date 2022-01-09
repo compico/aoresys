@@ -12,12 +12,10 @@
             hx-target="closest .list-group-item" hx-swap="outerHTML" hx-post="/doms/existusername"
             hx-params="username">Check</button>
         <div id="validationServerUsernameFeedback" class="invalid-feedback">
-            {{ if  .Username }}
-                {{ .Username }} занят.
+            {{ if .Error }}
+                Ошибка: {{ .Error }}!
             {{ else }}
-                {{ if .Error }}
-                    Ошибка: {{ .Error }}!
-                {{ end }}
+                {{ .Username }} занят.
             {{ end }}
         </div>
     </div>
