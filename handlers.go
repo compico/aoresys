@@ -89,6 +89,7 @@ func existUsernameHandler(w http.ResponseWriter, r *http.Request, _ httprouter.P
 	res := struct {
 		Result   bool
 		Username string
+		Error    string
 	}{
 		Username: r.FormValue("username"),
 	}
@@ -98,8 +99,7 @@ func existUsernameHandler(w http.ResponseWriter, r *http.Request, _ httprouter.P
 		defer cancel()
 		res.Result, err = cdb.ExistUsername(ctx, strings.ToLower(res.Username))
 		if err != nil {
-			fmt.Fprintf(w, "{ \"error\":\"%v\" }", err)
-			return
+			res.Error = err.Error()
 		}
 	}
 	t, err := template.ParseFiles(tpath + "existusername.html")
