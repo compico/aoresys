@@ -71,7 +71,7 @@ func (db *DB) ExistUsername(ctx context.Context, username string) (bool, error) 
 	validator := userutil.NewValidator(username)
 	username = validator.GetRightVar()
 	if username == "" {
-		return true, errors.New("Incorrect length or wrong characters")
+		return true, errors.New("Неверная длинна или запрещённые символы!")
 	}
 	q := bson.M{"username": username}
 	opts := options.FindOne().SetProjection(bson.M{"username": 1, "_id": 0})
