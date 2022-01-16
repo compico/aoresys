@@ -1,56 +1,55 @@
 {{ define "indexpage" }}
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container">
-    <a
-      class="navbar-brand"
-      hx-target="#app"
-      hx-get="/doms/index"
-      href="javascript:void(0)"
-    >
-      <img
-        src="/public/images/golosovanie_logo.png"
-        height="32"
-        class="d-inline-block"
-      />
-    </a>
-    <div class="container-fluid justify-content-start">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <button
-            class="btn btn-success active me-2"
-            hx-target="#app"
-            hx-get="/doms/index"
-          >
-            Home
-          </button>
-        </li>
-      </ul>
+<div id="app">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+      <a class="navbar-brand" hx-target="#app" hx-get="/doms/index" href="javascript:void(0)">
+        <img src="/public/images/golosovanie_logo.png" height="32" class="d-inline-block" />
+      </a>
+      <div class="container-fluid justify-content-start">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <button class="btn btn-success active me-2" hx-target="#app" hx-get="/doms/index">
+              Home
+            </button>
+          </li>
+        </ul>
+      </div>
+      <div class="container-fluid justify-content-end">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <button class="btn btn-success me-2" hx-target="#app" hx-get="/doms/loginreg">
+              Login in/Register now
+            </button>
+          </li>
+        </ul>
+      </div>
     </div>
-    <div class="container-fluid justify-content-end">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <button
-            class="btn btn-success me-2"
-            hx-target="#app"
-            hx-get="/doms/loginreg"
-          >
-            Login in/Register now
-          </button>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
-<div class="container-sm">
-  <div class="row justify-content-center mt-2">
-    <div class="col-6">test</div>
-    <div
-      class="col-4"
-      hx-get="/doms/servercard"
-      hx-trigger="load"
-      hx-target="this"
-    >
-      Loading..
+  </nav>
+  <div class="container-sm">
+    <div class="row justify-content-center mt-2">
+      <div class="col-4 my-4">
+        <div class="card">
+          <div class="card-header">
+            <a href="#">
+              <h5 class="card-title">Проверка названия блога 1</h5>
+            </a>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item"><img src="/public/images/animals.png" class="card-img" alt=""></li>
+          </ul>
+          <div class="card-body">
+            <p class="card-text">
+              Test проверка текста Test проверка текстаTest проверка текста Test проверка текстаTest проверка текста Test проверка текстаTest проверка текста Test проверка текста
+            </p>
+          </div>
+          <div class="card-footer text-muted">
+            2021-07-01T06:50:02.000Z
+          </div>
+        </div>
+      </div>
+      <div class="col-4 my-4" hx-get="/doms/servercard" hx-trigger="load" hx-target="this">
+        Loading..
+      </div>
     </div>
   </div>
 </div>
