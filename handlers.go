@@ -13,35 +13,20 @@ import (
 
 var tpath = "./templates/"
 
-type (
-	CardData struct {
-		Percent int
-		QueryResult
-	}
-	QueryResult struct {
-		HostIP    string
-		Player    string
-		Hostname  string
-		Version   string
-		NumPlayer int
-		MaxPlayer int
-		HostPort  int
-		Gametype  string
-		GameID    string
-		Plugins   string
-		Map       string
-	}
-)
-
 func indexHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	t, err := template.ParseFiles(
 		tpath+"head.html",
 		tpath+"index.html",
 		tpath+"footer.html",
 	)
-	if err != nil {
-		fmt.Fprintf(w, "Error: %v", err.Error())
+	c := r.Cookies()
+	for i := 0; i < len(c); i++ {
+		fmt.Printf("%#v\n", c[i])
 	}
+	// http.SetCookie(w, &http.Cookie{Name: "testName", Value: "testValue", MaxAge: 300})
+	// if err != nil {
+	// 	fmt.Fprintf(w, "Error: %v", err.Error())
+	// }
 	err = t.ExecuteTemplate(w, "index", nil)
 	if err != nil {
 		fmt.Fprintf(w, "[ERROR] %v!!", err.Error())
