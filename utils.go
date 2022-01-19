@@ -7,6 +7,27 @@ import (
 	"github.com/sandertv/gophertunnel/query"
 )
 
+type (
+	CardData struct {
+		Percent      int
+		PercentStyle string
+		QueryResult
+	}
+	QueryResult struct {
+		HostIP    string
+		Player    string
+		Hostname  string
+		Version   string
+		NumPlayer int
+		MaxPlayer int
+		HostPort  int
+		Gametype  string
+		GameID    string
+		Plugins   string
+		Map       string
+	}
+)
+
 func getServerCardData(ip string) CardData {
 	if ip == "" {
 		return CardData{
@@ -14,7 +35,7 @@ func getServerCardData(ip string) CardData {
 			QueryResult: QueryResult{
 				HostIP:    ip,
 				Player:    "Compico, TestPlayer, Herobrine",
-				Hostname:  "test.hostname.ru",
+				Hostname:  "test.examplename.ru",
 				Version:   "1.18.1",
 				NumPlayer: 12,
 				MaxPlayer: 20,
@@ -47,5 +68,6 @@ func getServerCardData(ip string) CardData {
 	if dataservercard.Percent < 8 {
 		dataservercard.Percent = 8
 	}
+	dataservercard.PercentStyle = fmt.Sprintf("style=\"width: %d%%;\"", dataservercard.Percent)
 	return dataservercard
 }

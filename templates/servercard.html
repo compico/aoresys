@@ -19,7 +19,7 @@
       </div>
     </div>
     <div class="progress">
-      <div class="progress-bar" role="progressbar" style="width: {{ .Percent }}%;" aria-valuenow="{{ .QueryResult.NumPlayer }}" aria-valuemin="0" aria-valuemax="{{ .QueryResult.MaxPlayer }}">
+      <div class="progress-bar" role="progressbar" {{ .PercentStyle }} aria-valuenow="{{ .QueryResult.NumPlayer }}" aria-valuemin="0" aria-valuemax="{{ .QueryResult.MaxPlayer }}">
         {{ .QueryResult.NumPlayer }}
         /
         {{ .QueryResult.MaxPlayer }}

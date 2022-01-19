@@ -1,4 +1,4 @@
-"use strict";
-document.body.addEventListener("showMassage", function (event) {
-    return;
-});
+'use strict'
+document.body.addEventListener('showMassage', function (event) {
+  return
+})

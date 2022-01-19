@@ -6,16 +6,13 @@
     <p><small class="text-muted"></small></p>
     <h6>Username :</h6>
     <div class="input-group mb-3">
-        <input type="text" class="form-control is-invalid" aria-describedby="basic-addon1" name="username"
-            value="{{ .Username }}">
-        <button class="btn btn-outline-danger" type="button" id="button-addon1" hx-trigger="click"
-            hx-target="closest .list-group-item" hx-swap="outerHTML" hx-post="/doms/existusername"
-            hx-params="username">Check</button>
+        <input type="text" class="form-control is-invalid" aria-describedby="basic-addon1" name="username" value="{{ .Username }}">
+        <button class="btn btn-outline-danger" type="button" id="button-addon1" hx-trigger="click" hx-target="closest .list-group-item" hx-swap="outerHTML" hx-post="/doms/existusername" hx-params="username">Check</button>
         <div id="validationServerUsernameFeedback" class="invalid-feedback">
             {{ if .Error }}
-                Ошибка: {{ .Error }}!
+            Ошибка: {{ .Error }}!
             {{ else }}
-                {{ .Username }} занят.
+            {{ .Username }} занят.
             {{ end }}
         </div>
     </div>
@@ -28,11 +25,8 @@
     <p><small class="text-muted"></small></p>
     <h6>Username :</h6>
     <div class="input-group mb-3">
-        <input type="text" class="form-control is-valid" aria-describedby="basic-addon1" name="username"
-            value="{{ .Username }}">
-        <button class="btn btn-outline-success" type="button" id="button-addon1" hx-trigger="click"
-            hx-target="closest .list-group-item" hx-swap="outerHTML" hx-post="/doms/existusername"
-            hx-params="username">Check</button>
+        <input type="text" class="form-control is-valid" aria-describedby="basic-addon1" name="username" value="{{ .Username }}">
+        <button class="btn btn-outline-success" type="button" id="button-addon1" hx-trigger="click" hx-target="closest .list-group-item" hx-swap="outerHTML" hx-post="/doms/existusername" hx-params="username">Check</button>
         <div class="valid-feedback">
             {{ .Username }} свободен.
         </div>

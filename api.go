@@ -11,6 +11,7 @@ import (
 
 	"github.com/compico/aoresys/internal/userutil"
 	"github.com/julienschmidt/httprouter"
+	"golang.org/x/crypto/bcrypt"
 )
 
 func registerApiHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
@@ -54,6 +55,11 @@ func registerApiHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Par
 		w.Write([]byte(fmt.Sprintf("Недопустимая длинна в пароле\n")))
 		return
 	}
+	hashpass, err := bcrypt.GenerateFromPassword([]byte(usr.Password), bcrypt.DefaultCost)
+	if err != nil {
+		w.Write([]byte(fmt.Sprintf("Ошибка: %v\n", err)))
+	}
+	usr.Password = string(hashpass)
 	err = cdb.AddNewUser(ctx, usr)
 	if err != nil {
 		w.Write([]byte(fmt.Sprintf("Ошибка: %v\n", err)))
@@ -61,14 +67,15 @@ func registerApiHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Par
 	}
 	http.Redirect(w, r, "/", http.StatusMovedPermanently)
 }
+
 func registrationHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	mn := r.FormValue("model")
-	var data = struct{
-		Errors []string
-		User userutil.User
-		UsernameError  bool
-		EmailError  bool
-		PasswordError  bool
+	var data = struct {
+		Errors        []string
+		User          userutil.User
+		UsernameError bool
+		EmailError    bool
+		PasswordError bool
 	}{
 		User: userutil.User{
 			Username: r.FormValue("username"),
@@ -77,20 +84,20 @@ func registrationHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Pa
 		},
 	}
 	var m bool
-	if mn == ""{
+	if mn == "" {
 		data.Errors = append(data.Errors, "Model not selected!")
 	}
-	if mn == "alex"{
+	if mn == "alex" {
 		m = userutil.ALEX
 	}
 	data.User.Model = m
-	t , err := template.ParseFiles(tpath+"registationForm.html")
+	t, err := template.ParseFiles(tpath + "registationForm.html")
 	if err != nil {
 		data.Errors = append(data.Errors, err.Error())
 	}
 
 	//email
-	if data.User.Email == ""{
+	if data.User.Email == "" {
 		data.EmailError = true
 		data.Errors = append(data.Errors, "Email is Empty!")
 	}
@@ -100,23 +107,23 @@ func registrationHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Pa
 	}
 
 	//username
-	if data.User.Username == ""{
+	if data.User.Username == "" {
 		data.UsernameError = true
 		data.Errors = append(data.Errors, "Username is Empty!")
 	}
 	v := userutil.NewValidator(data.User.Username)
-	if v.ValidateByEqual(){
+	if v.ValidateByEqual() {
 		data.UsernameError = true
 		data.Errors = append(data.Errors, "Username has wrong characters!")
 	}
-	if v.ValidateLen(){
+	if v.ValidateLen() {
 		data.UsernameError = true
 		data.Errors = append(data.Errors, "Invalid username length!")
 	}
-	v=nil
+	v = nil
 
 	//password
-	if data.User.Password == ""{
+	if data.User.Password == "" {
 		data.PasswordError = true
 		data.Errors = append(data.Errors, "Password is Empty!")
 	}
@@ -124,6 +131,10 @@ func registrationHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Pa
 		data.PasswordError = true
 		data.Errors = append(data.Errors, "Invalid password length!")
 	}
-	
-	t.ExecuteTemplate(w,"registrationform",data)
+
+	t.ExecuteTemplate(w, "registrationform", data)
+}
+
+func loginApiHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+
 }

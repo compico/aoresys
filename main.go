@@ -42,6 +42,7 @@ func main() {
 	router.POST("/doms/existusername", existUsernameHandler)
 
 	router.POST("/api/v1/register", registerApiHandler)
+	router.POST("/api/v1/login", loginApiHandler)
 
 	router.ServeFiles("/public/*filepath", http.Dir("./public/"))
 

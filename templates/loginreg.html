@@ -26,9 +26,37 @@
 	<div class="row justify-content-center mt-2">
 		<div class="col-4">
 			<h3 class="my-4">Вход</h3>
-			<div class="mb-3"></div>
-			<div class="mb-3"></div>
-			<div class="mb-3"></div>
+			<div class="list-group">
+				<form method="post" action="/api/v1/login">
+					<div class="list-group-item">
+						<h6> Username: </h6>
+						<div class="input-group mb-3">
+							<input type="text" class="form-control" name="username">
+						</div>
+					</div>
+					<div class="list-group-item">
+						<h6> Password: </h6>
+						<div class="input-group mb-3">
+							<input type="password" class="form-control" name="password">
+						</div>
+					</div>
+					<div class="list-group-item">
+						<div class="row align-items-center">
+							<div class="col-9 px-0">
+								<div class="form-check px-3">
+									<label>
+										<input type="checkbox" value="Remember me" name="remember">
+										Remember me
+									</label>
+								</div>
+							</div>
+							<div class="col-3 px-0">
+								<input type="submit" value="Login" class="btn btn-outline-secondary my-3">
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
 		</div>
 		<div class="col-4">
 			<h3 class="my-4">Регистрация</h3>
@@ -53,11 +81,11 @@
 					<div class="list-group-item">
 						<h6>Password :</h6>
 						<div class="my-3">
-							<input type="password" class="form-control" aria-describedby="basic-addon2" name="password">
+							<input type="password" class="form-control" aria-describedby="basic-addon2" id="passReg" name="password">
 						</div>
 						<h6>Password Confirmation :</h6>
 						<div class="mb-3">
-							<input type="password" class="form-control" aria-describedby="basic-addon3" name="passwordConfirmation">
+							<input type="password" class="form-control" aria-describedby="basic-addon3" id="passConfirm" name="passwordConfirmation">
 						</div>
 					</div>
 					<div class="list-group-item">
@@ -98,8 +126,8 @@
 	var validator = (function () {
 		let warning = document.createElement('span'),
 			pw = document.getElementById("passwordwarning"),
-			ps = document.getElementsByName("password")[0],
-			pc = document.getElementsByName("passwordConfirmation")[0],
+			ps = document.getElementById("passReg"),
+			pc = document.getElementById("passConfirm"),
 			ui = document.getElementsByName("username")[0],
 			ch = document.getElementById("button-addon1"),
 			pf = ps.parentElement.parentElement;
