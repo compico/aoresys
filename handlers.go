@@ -19,14 +19,6 @@ func indexHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 		tpath+"index.html",
 		tpath+"footer.html",
 	)
-	c := r.Cookies()
-	for i := 0; i < len(c); i++ {
-		fmt.Printf("%#v\n", c[i])
-	}
-	// http.SetCookie(w, &http.Cookie{Name: "testName", Value: "testValue", MaxAge: 300})
-	// if err != nil {
-	// 	fmt.Fprintf(w, "Error: %v", err.Error())
-	// }
 	err = t.ExecuteTemplate(w, "index", nil)
 	if err != nil {
 		fmt.Fprintf(w, "[ERROR] %v!!", err.Error())
