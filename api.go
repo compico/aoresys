@@ -4,18 +4,19 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/compico/aoresys/internal/model"
 	"github.com/compico/aoresys/internal/userutil"
 	"github.com/julienschmidt/httprouter"
 	"golang.org/x/crypto/bcrypt"
 )
 
 func registerApiHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	model := r.FormValue("model")
+	umodel := r.FormValue("model")
 	m := false
-	if model == "alex" {
+	if umodel == "alex" {
 		m = true
 	}
-	if (model == "" || r.FormValue("username") == "") || (r.FormValue("email") == "" || r.FormValue("password") == "") {
+	if (umodel == "" || r.FormValue("username") == "") || (r.FormValue("email") == "" || r.FormValue("password") == "") {
 		w.Write([]byte(fmt.Sprintf("Есть пустые поля!\n")))
 		return
 	}
