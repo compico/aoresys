@@ -1,4 +1,4 @@
-package db_test
+package userutil
 
 import (
 	"encoding/hex"

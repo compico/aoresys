@@ -1,21 +1,24 @@
 package main
 
 import (
-	"github.com/compico/aoresys/conf"
-	"github.com/compico/aoresys/internal/db"
+	"context"
+	"log"
+	"os"
+
+	"github.com/go-pg/pg/v10"
 )
 
-var (
-	cdb *db.DB
-)
+var db *pg.DB
 
-func initDBClient() {
-	dbcfg, err := conf.GetMongoConfigFromEnvironment()
-	if err != nil {
-		panic(err)
-	}
-	cdb, err = db.NewDB(*dbcfg)
-	if err != nil {
-		panic(err)
+func connectToDB() {
+	db = pg.Connect(&pg.Options{
+		Addr:     os.Getenv("DB_ADDR"),
+		User:     os.Getenv("DB_USER"),
+		Password: os.Getenv("DB_PASS"),
+		Database: os.Getenv("DB_NAME"),
+	})
+	ctx := context.Background()
+	if err := db.Ping(ctx); err != nil {
+		log.Fatalln(err)
 	}
 }

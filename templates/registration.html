@@ -1,63 +1,7 @@
-{{ define "loginreg" }}
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-	<div class="container">
-		<a class="navbar-brand" hx-target="#app" hx-get="/doms/index" href="javascript:void(0)">
-			<img src="/public/images/golosovanie_logo.png" height="32" class="d-inline-block">
-		</a>
-		<div class="container-fluid justify-content-start">
-			<ul class="navbar-nav">
-				<li class="nav-item">
-					<button class="btn btn-success me-2" hx-target="#app" hx-get="/doms/index">Home</button>
-				</li>
-			</ul>
-		</div>
-		<div class="container-fluid justify-content-end">
-			<ul class="navbar-nav">
-				<li class="nav-item">
-					<button class="btn btn-success active me-2" hx-target="#app" hx-get="/doms/loginreg">Login
-						in/Register
-						now</button>
-				</li>
-			</ul>
-		</div>
-	</div>
-</nav>
+{{ define "registration" }}
+{{ template "navbar" .Navbar }}
 <div class="container-sm">
 	<div class="row justify-content-center mt-2">
-		<div class="col-4">
-			<h3 class="my-4">Вход</h3>
-			<div class="list-group">
-				<form method="post" action="/api/v1/login">
-					<div class="list-group-item">
-						<h6> Username: </h6>
-						<div class="input-group mb-3">
-							<input type="text" class="form-control" name="username">
-						</div>
-					</div>
-					<div class="list-group-item">
-						<h6> Password: </h6>
-						<div class="input-group mb-3">
-							<input type="password" class="form-control" name="password">
-						</div>
-					</div>
-					<div class="list-group-item">
-						<div class="row align-items-center">
-							<div class="col-9 px-0">
-								<div class="form-check px-3">
-									<label>
-										<input type="checkbox" value="Remember me" name="remember">
-										Remember me
-									</label>
-								</div>
-							</div>
-							<div class="col-3 px-0">
-								<input type="submit" value="Login" class="btn btn-outline-secondary my-3">
-							</div>
-						</div>
-					</div>
-				</form>
-			</div>
-		</div>
 		<div class="col-4">
 			<h3 class="my-4">Регистрация</h3>
 			<div class="list-group">
@@ -123,7 +67,7 @@
 </div>
 <script>;
 	"use strict";
-	var validator = (function () {
+	validator = function () {
 		let warning = document.createElement('span'),
 			pw = document.getElementById("passwordwarning"),
 			ps = document.getElementById("passReg"),
@@ -171,7 +115,7 @@
 		ps.addEventListener("input", event);
 		pc.addEventListener("input", event);
 		this.warning = warning;
-	});
+	};
 	validator();
 </script>
 {{ end }}

@@ -1,10 +1,9 @@
-package db
+package userutil
 
 import (
 	"encoding/hex"
 	"strings"
 
-	"github.com/compico/aoresys/internal/userutil"
 	"github.com/google/uuid"
 )
 
@@ -27,10 +26,10 @@ func GenerateUUID(model bool) (string, error) {
 			u = append(u, h[i])
 		}
 		r := ((u[0] ^ u[1]) ^ (u[2] ^ u[3])) % 2
-		if r == 0 && userutil.STEVE {
+		if r == 0 && STEVE {
 			break
 		}
-		if r == 1 && userutil.ALEX {
+		if r == 1 && ALEX {
 			break
 		}
 	}

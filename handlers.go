@@ -1,17 +1,20 @@
 package main
 
 import (
-	"context"
 	"fmt"
 	"html/template"
 	"net/http"
-	"strings"
-	"time"
 
 	"github.com/julienschmidt/httprouter"
 )
 
 var tpath = "./templates/"
+
+type Navbar struct {
+	Homebutton         string
+	Registrationbutton string
+	Loginbutton        string
+}
 
 func indexHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	t, err := template.ParseFiles(
@@ -19,20 +22,49 @@ func indexHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 		tpath+"index.html",
 		tpath+"footer.html",
 	)
+	if err != nil {
+		fmt.Fprintf(w, "Error: %v", err.Error())
+	}
 	err = t.ExecuteTemplate(w, "index", nil)
 	if err != nil {
 		fmt.Fprintf(w, "[ERROR] %v!!", err.Error())
 		fmt.Printf("[ERROR] %v!!", err.Error())
 	}
+
 }
 
-func loginregHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+func registrationHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	// w.Header().Add("HX-Trigger", "{\"addBtnEventStatements\": \"example\"}")
-	t, err := template.ParseFiles(tpath + "loginreg.html")
+	data := struct {
+		Navbar Navbar
+	}{
+		Navbar{
+			Registrationbutton: "active",
+		},
+	}
+	t, err := template.ParseFiles(tpath+"registration.html", tpath+"navbar.html")
 	if err != nil {
 		fmt.Fprintf(w, "Error: %v", err.Error())
 	}
-	err = t.ExecuteTemplate(w, "loginreg", nil)
+	err = t.ExecuteTemplate(w, "registration", data)
+	if err != nil {
+		fmt.Fprintf(w, "Error: %v", err.Error())
+	}
+}
+
+func loginHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	data := struct {
+		Navbar Navbar
+	}{
+		Navbar{
+			Loginbutton: "active",
+		},
+	}
+	t, err := template.ParseFiles(tpath+"login.html", tpath+"navbar.html")
+	if err != nil {
+		fmt.Fprintf(w, "Error: %v", err.Error())
+	}
+	err = t.ExecuteTemplate(w, "login", data)
 	if err != nil {
 		fmt.Fprintf(w, "Error: %v", err.Error())
 	}
@@ -51,42 +83,19 @@ func servercardHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Para
 }
 
 func indexpageHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	t, err := template.ParseFiles(tpath + "indexpage.html")
-	if err != nil {
-		fmt.Fprintf(w, "Error: %v", err.Error())
-	}
-	err = t.ExecuteTemplate(w, "indexpage", nil)
-	if err != nil {
-		fmt.Fprintf(w, "Error: %v", err.Error())
-	}
-}
-
-func existUsernameHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	r.ParseForm()
-	res := struct {
-		Result   bool
-		Username string
-		Error    string
+	data := struct {
+		Navbar Navbar
 	}{
-		Username: r.FormValue("username"),
+		Navbar{
+			Homebutton: "active",
+		},
 	}
-	var err error
-	if res.Username != "" {
-		ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
-		defer cancel()
-		res.Result, err = cdb.ExistUsername(ctx, strings.ToLower(res.Username))
-		if err != nil {
-			res.Error = err.Error()
-		}
-	}
-	t, err := template.ParseFiles(tpath + "existusername.html")
+	t, err := template.ParseFiles(tpath+"indexpage.html", tpath+"navbar.html")
 	if err != nil {
-		fmt.Fprintf(w, "{ \"error\":\"%v\" }", err)
-		return
+		fmt.Fprintf(w, "Error: %v", err.Error())
 	}
-	err = t.ExecuteTemplate(w, "existusername", res)
+	err = t.ExecuteTemplate(w, "indexpage", data)
 	if err != nil {
-		fmt.Fprintf(w, "{ \"error\":\"%v\" }", err)
-		return
+		fmt.Fprintf(w, "Error: %v", err.Error())
 	}
 }
